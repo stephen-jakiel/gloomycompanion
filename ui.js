@@ -90,6 +90,39 @@ function init_ui()
             tableau.appendChild(div);
         });
     };
+
+    var modifierDeckIsLocked = document.getElementById("modifier-deck-is-locked");
+    modifierDeckIsLocked.onclick = (e) => {
+        var gameView = document.querySelector(".game-view");
+        var tableau = document.querySelector("#tableau");
+        var header = document.querySelector(".header");
+        var initiativeSort = document.querySelector("#initiative-sort");
+        if (modifierDeckIsLocked.hasAttribute("locked")) {
+            modifierDeckIsLocked.removeAttribute("locked");
+            modifierDeckIsLocked.setAttribute("src", "images/lock.svg");
+
+            document.body.insertBefore(gameView, tableau);
+            document.body.insertBefore(modifierDeckIsLocked, gameView);
+            document.body.insertBefore(initiativeSort, modifierDeckIsLocked);
+            initiativeSort.style.top = "402px";
+            modifierDeckIsLocked.style.top = "444px";
+            gameView.style.paddingTop = "150px";
+            tableau.style.paddingTop = "0px";
+            header.style.height = "50px";
+        } else {
+            modifierDeckIsLocked.setAttribute("locked", "");
+            modifierDeckIsLocked.setAttribute("src", "images/unlock-alt.svg");
+
+            header.appendChild(gameView);
+            header.appendChild(initiativeSort);
+            header.appendChild(modifierDeckIsLocked);
+            initiativeSort.style.top = "300px";
+            modifierDeckIsLocked.style.top = "342px";
+            gameView.style.paddingTop = "0px";
+            tableau.style.paddingTop = "300px";
+            header.style.height = "280px";
+        }
+    };
 }
 
 function changeGame() {

@@ -38,12 +38,19 @@ select {
 }
 
 #initiative-sort {
-    background-image: url(images/sort-numeric-asc.svg);
     width: 32px;
     height: 32px;
     position: absolute;
     left: 10px;
     top: 300px;
+}
+
+#modifier-deck-is-locked {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    left: 10px;
+    top: 342px;
 }
 
 #game-container {
