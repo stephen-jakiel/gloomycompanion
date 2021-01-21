@@ -1,5 +1,5 @@
 //special_rules should be treated with some kind of macro that recognises them and applies them when loading
-SPECIAL_RULES =
+GLOOMHAVEN_SPECIAL_RULES =
 {
     living_corpse_two_levels_extra:
         {   "description": "All living corpses are two levels higher than the scenario level, up to a max of 7",
@@ -9,18 +9,18 @@ SPECIAL_RULES =
 };
 
 
-SCENARIO_DEFINITIONS =
+GLOOMHAVEN_SCENARIO_DEFINITIONS =
     [   { name: "#1 Black Barrow"
         , decks:
-            [   {"name": "Bandit Guard", "deck_name": "Guard"}
-            ,   {"name": "Bandit Archer", "deck_name": "Archer"}
-            ,   {"name": "Living Bones", "deck_name": "Living Bones"}
+            [   {"name": "Bandit Guard"}
+            ,   {"name": "Bandit Archer"}
+            ,   {"name": "Living Bones"}
             ]
         },
         { name: "#2 Barrow Lair"
         , decks:
             [   {"name": "Bandit Archer"}
-            ,   {"name": "Boss: Bandit Commander"}
+            ,   {"name": "Bandit Commander"}
             ,   {"name": "Living Bones"}
             ,   {"name": "Living Corpse"}
             ]
@@ -69,14 +69,14 @@ SCENARIO_DEFINITIONS =
         , decks:
             [   {"name": "Living Bones"}
             ,   {"name": "Living Corpse"}
-            ,   {"name": "Boss: Inox Bodyguard"}
+            ,   {"name": "Inox Bodyguard"}
             ]
         },
         { name: "#9 Diamond Mine"
         , decks:
             [   {"name": "Hound"}
             ,   {"name": "Vermling Scout"}
-            ,   {"name": "Boss: Merciless Overseer"}
+            ,   {"name": "Merciless Overseer"}
             ]
         },
         { name: "#10 Plane of Elemental Power"
@@ -92,7 +92,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Living Corpse"}
             ,   {"name": "City Guard"}
             ,   {"name": "City Archer"}
-            ,   {"name": "Boss: Captain of the Guard"}
+            ,   {"name": "Captain of the Guard"}
             ]
         },
         { name: "#12 Gloomhaven Square B"
@@ -102,7 +102,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Cultist"}
             ,   {"name": "City Guard"}
             ,   {"name": "City Archer"}
-            ,   {"name": "Boss: Jekserah"}
+            ,   {"name": "Jekserah"}
             ]
         },
         { name: "#13 Temple of the Seer"
@@ -165,7 +165,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Cultist"}
             ,   {"name": "Night Demon"}
             ,   {"name": "Living Corpse"}
-            ,   {"name": "Boss: Jekserah"}
+            ,   {"name": "Jekserah"}
             ]
         },
         { name: "#21 Infernal Throne"
@@ -176,7 +176,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Wind Demon"}
             ,   {"name": "Earth Demon"}
             ,   {"name": "Flame Demon"}
-            ,   {"name": "Boss: Prime Demon"}
+            ,   {"name": "Prime Demon"}
             ]
         },
         { name: "#22 Temple of the Elements"
@@ -238,7 +238,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Sun Demon"}
             ]
         , special_rules:
-            [ SPECIAL_RULES.living_corpse_two_levels_extra
+            [ GLOOMHAVEN_SPECIAL_RULES.living_corpse_two_levels_extra
             ]
         },
         { name: "#29 Sanctuary of Gloom"
@@ -285,7 +285,7 @@ SCENARIO_DEFINITIONS =
         , decks:
             [   {"name": "Rending Drake"}
             ,   {"name": "Spitting Drake"}
-            ,   {"name": "Boss: Elder Drake"}
+            ,   {"name": "Elder Drake"}
             ]
         },
         { name: "#35 Gloomhaven Battlements A"
@@ -296,7 +296,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Wind Demon"}
             ,   {"name": "City Archer"}
             ,   {"name": "City Guard"}             
-            ,   {"name": "Boss: Captain of the Guard"}
+            ,   {"name": "Captain of the Guard"}
             ]
         },
         { name: "#36 Gloomhaven Battlements B"
@@ -306,7 +306,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Earth Demon"}
             ,   {"name": "Wind Demon"}
             ,   {"name": "City Archer"}
-            ,   {"name": "Boss: Prime Demon"}
+            ,   {"name": "Prime Demon"}
             ]
         },
         { name: "#37 Doom Trench"
@@ -385,7 +385,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Frost Demon"}
             ,   {"name": "Wind Demon"}
             ,   {"name": "Savvas Icestorm"}
-            ,   {"name": "Boss: Winged Horror"}
+            ,   {"name": "Winged Horror"}
             ]
         },
         { name: "#47 Lair of the Unseeing Eye"
@@ -393,7 +393,7 @@ SCENARIO_DEFINITIONS =
             [   {"name": "Lurker"}
             ,   {"name": "Deep Terror"}
             ,   {"name": "Harrower Infester"}
-            ,   {"name": "Boss: The Sightless Eye"}
+            ,   {"name": "The Sightless Eye"}
             ]
         },
         { name: "#48 - Shadow Weald"
@@ -401,7 +401,7 @@ SCENARIO_DEFINITIONS =
             [   {"name": "Forest Imp"}
             ,   {"name": "Earth Demon"}
             ,   {"name": "Harrower Infester"}
-            ,   {"name": "Boss: Dark Rider"}
+            ,   {"name": "Dark Rider"}
             ]
         },
         { name: "#49 Rebel's Stand"
@@ -421,7 +421,7 @@ SCENARIO_DEFINITIONS =
         },
         { name: "#51 The Void"
         , decks:
-            [   {"name": "Boss: The Gloom"}
+            [   {"name": "The Gloom"}
             ]
         },
         { name: "#52 Noxious Cellar"
@@ -636,7 +636,7 @@ SCENARIO_DEFINITIONS =
         , decks:
             [   {"name": "Stone Golem"}
             ,   {"name": "Giant Viper"}
-            ,   {"name": "Boss: The Betrayer"}
+            ,   {"name": "The Betrayer"}
             ]
         },
         { name: "#80 Vigil Keep"
@@ -653,7 +653,7 @@ SCENARIO_DEFINITIONS =
             ,   {"name": "Sun Demon"}
             ,   {"name": "Stone Golem"}
             ,   {"name": "Ancient Artillery"}
-            ,   {"name": "Boss: The Colorless"}
+            ,   {"name": "The Colorless"}
             ]
         },
         { name: "#82 Burning Mountain"
@@ -772,3 +772,177 @@ SCENARIO_DEFINITIONS =
         }
 
     ];
+
+JAWS_OF_THE_LION_SPECIAL_RULES =
+{};
+
+JAWS_OF_THE_LION_SCENARIO_DEFINITIONS =
+    [   { name: "#1 Roadside Ambush"
+        , decks:
+            [   {"name": "Most Basic Vermling Raider"},
+            ]
+        },
+        { name: "#2 A Hole in the Wall"
+        , decks:
+            [   {"name": "Basic Vermling Raider"},
+            ]
+        },
+        { name: "#3 The Black Ship"
+        , decks:
+            [   {"name": "Basic Giant Viper"},
+                {"name": "Basic Zealot"},
+            ]
+        },
+        { name: "#4 A Ritual in Stone"
+        , decks:
+            [   {"name": "Stone Golem"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#5 A Deeper Understanding"
+        , decks:
+            [   {"name": "Blood Tumor"},
+                {"name": "Chaos Demon"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#6 Corrupted Research"
+        , decks:
+            [   {"name": "Rat Monstrosity"},
+                {"name": "Black Sludge"},
+            ]
+        },
+        { name: "#7 Sunken Tumor"
+        , decks:
+            [   {"name": "Blood Tumor"},
+                {"name": "Vermling Scout"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#8 Hidden Tumor"
+        , decks:
+            [   {"name": "Blood Tumor"},
+                {"name": "Chaos Demon"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#9 Explosive Evolution"
+        , decks:
+            [   {"name": "Blood Horror"},
+                {"name": "Living Corpse"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#10 The Gauntlet"
+        , decks:
+            [   {"name": "Black Sludge"},
+                {"name": "Chaos Demon"},
+                {"name": "Stone Golem"},
+            ]
+        },
+        { name: "#11 Defiled Sewers"
+        , decks:
+            [   {"name": "Black Sludge"},
+                {"name": "Giant Viper"},
+                {"name": "Vermling Scout"},
+            ]
+        },
+        { name: "#12 Beguiling Sewers"
+        , decks:
+            [   {"name": "Living Corpse"},
+                {"name": "Living Spirit"},
+            ]
+        },
+        { name: "#13 Vile Harvest"
+        , decks:
+            [   {"name": "Black Sludge"},
+                {"name": "Blood Imp"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#14 Toxic Harvest"
+        , decks:
+            [   {"name": "Blood Imp"},
+                {"name": "Giant Viper"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#15 Tainted Blood"
+        , decks:
+            [   {"name": "Black Imp"},
+                {"name": "Blood Imp"},
+                {"name": "Zealot"},
+            ]
+        },
+        { name: "#16 Mixed Results"
+        , decks:
+            [   {"name": "Black Imp"},
+                {"name": "Blood Imp"},
+                {"name": "Rat Monstrosity"},
+            ]
+        },
+        { name: "#17 Red Twilight"
+        , decks:
+            [   {"name": "Blood Imp"},
+                {"name": "Blood Monstrosity"},
+                {"name": "First of the Order"},
+            ]
+        },
+        { name: "#18 The Heist"
+        , decks:
+            [   {"name": "Stone Golem"},
+            ]
+        },
+        { name: "#19 Den of Thieves"
+        , decks:
+            [   {"name": "Rat Monstrosity"},
+                {"name": "Vermling Raider"},
+                {"name": "Vermling Scout"},
+            ]
+        },
+        { name: "#20 Misplaced Goods"
+        , decks:
+            [   {"name": "Black Sludge"},
+                {"name": "Chaos Demon"},
+                {"name": "Giant Viper"},
+                {"name": "Rat Monstrosity"},
+            ]
+        },
+        { name: "#21 Agents of Chaos"
+        , decks:
+            [   {"name": "Chaos Demon"},
+                {"name": "Giant Viper"},
+            ]
+        },
+        { name: "#22 Unfriendly Message"
+        , decks:
+            [   {"name": "Giant Viper"},
+                {"name": "Stone Golem"},
+                {"name": "Vermling Raider"},
+            ]
+        },
+        { name: "#23 Best of the Best"
+        , decks:
+            [   {"name": "Giant Viper"},
+                {"name": "Rat Monstrosity"},
+                {"name": "Stone Golem"},
+                {"name": "Vermling Raider"},
+            ]
+        },
+        { name: "#24 Warding the Void"
+        , decks:
+            [   {"name": "Black Imp"},
+                {"name": "Chaos Demon"},
+            ]
+        },
+        { name: "#25 The Greatest Job in the World"
+        , decks:
+            [   {"name": "Living Spirit"},
+                {"name": "Vermling Raider"},
+                {"name": "Vermling Scout"},
+            ]
+        },
+    ];
+
+SPECIAL_RULES = GLOOMHAVEN_SPECIAL_RULES;
+SCENARIO_DEFINITIONS = GLOOMHAVEN_SCENARIO_DEFINITIONS;

@@ -2,7 +2,6 @@
 var do_shuffles = true;
 var visible_ability_decks = [];
 var modifier_deck = null;
-var deck_definitions = load_definition(DECK_DEFINITONS);
 
 var DECK_TYPES =
     {
@@ -72,15 +71,27 @@ function create_ability_card_back(name, level) {
     return card;
 }
 
-function create_ability_card_front(initiative, name, shuffle, lines, attack, move, range, level, health) {
+function create_ability_card_front(initiative, name, title, shuffle, lines, attack, move, range, level, health) {
     var card = document.createElement("div");
     card.className = "card ability front down";
 
+    name = name + "-" + level;
+    if (!title || title === "") {
+        title = name;
+        name = "";
+    }
+
+    var title_span = document.createElement("span");
+    title_span.className = "title";
+    title_span.innerText = title;
+    card.appendChild(title_span);
+
+    card.appendChild(document.createElement("br"));
+
     var name_span = document.createElement("span");
     name_span.className = "name";
-    name_span.innerText = name + "-" + level;
+    name_span.innerText = name;
     card.appendChild(name_span);
-
 
 	var healthNormal_span = document.createElement("span");
     healthNormal_span.className = "healthNormal";
@@ -159,6 +170,19 @@ function create_ability_card_front(initiative, name, shuffle, lines, attack, mov
             current_parent = list_item;
         }
 
+        var numberOfCharacters = document.getElementById("number-of-characters").value;
+        var scenarioLevel = document.getElementById("scenario-level").value;
+
+        if (line && typeof line === "string" && line.indexOf("${") !== -1) {
+            while (line.indexOf("${") !== -1) {
+                var expressionStartIndex = line.indexOf("${") + 2;
+                var expressionEndIndex = line.indexOf("}", expressionStartIndex);
+                var expressionToEvaluate = line.substring(expressionStartIndex, expressionEndIndex);
+                var value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
+                line = line.substring(0, expressionStartIndex - 2) + value + line.substring(expressionEndIndex + 1);
+            }
+        }
+
         var text = expand_string(line.trim(), attack, move, range);
         current_parent.insertAdjacentHTML("beforeend", text);
     }
@@ -167,7 +191,7 @@ function create_ability_card_front(initiative, name, shuffle, lines, attack, mov
 }
 
 function load_ability_deck(deck_class, deck_name, level) {
-    var deck_definition = deck_definitions[deck_class];
+    var deck_definition = load_definition(DECK_DEFINITIONS)[deck_class];
     deck_definition.name = deck_name;
     deck_definition.level = level;
 
@@ -189,9 +213,10 @@ function load_ability_deck(deck_class, deck_name, level) {
 
     for (var i = 0; i < deck_definition.cards.length; i++) {
         var definition = deck_definition.cards[i];
-        var shuffle = definition[0];
-        var initiative = definition[1];
-        var lines = definition.slice(2);
+        var title = definition[0]
+        var shuffle = definition[1];
+        var initiative = definition[2];
+        var lines = definition.slice(3);
 
         var empty_front = document.createElement("div");
         empty_front.className = "card ability front down";
@@ -201,13 +226,14 @@ function load_ability_deck(deck_class, deck_name, level) {
         var card = {
             id: deck.name + '_' + i,
             ui: new UICard(card_front, card_back),
+            title: title,
             shuffle_next: shuffle,
             initiative: initiative,
             starting_lines: lines,
         };
 
         card.paint_front_card = function (name, lines, attack, move, range, level, health) {
-            this.ui.front = create_ability_card_front(this.initiative, name, this.shuffle_next, lines, attack, move, range, level, health);
+            this.ui.front = create_ability_card_front(this.initiative, name, this.title, this.shuffle_next, lines, attack, move, range, level, health);
         }
         if (loaded_deck && find_in_discard(loaded_deck.discard, card.id)) {
             deck.discard.push(card);
@@ -252,7 +278,6 @@ function load_ability_deck(deck_class, deck_name, level) {
     }
 
     deck.draw_top_card = function () {
-
         var cards_lines = this.draw_pile[0].starting_lines;
         var extra_lines = [];
         if (this.is_boss()) {
@@ -313,7 +338,7 @@ function load_ability_deck(deck_class, deck_name, level) {
     }
 
     deck.is_boss = function () {
-        return this.class == DECKS["Boss"].class;
+        return this.class === "Boss";
     }
 
     deck.set_card_piles = function (draw_pile, discard_pile) {
@@ -426,6 +451,7 @@ function flip_up_top_card(deck) {
     card = deck.draw_pile.shift();
     send_to_discard(card, true);
     deck.discard.unshift(card);
+    return card.initiative;
 }
 
 function send_to_discard(card, pull_animation) {
@@ -442,7 +468,7 @@ function send_to_discard(card, pull_animation) {
 }
 
 function draw_ability_card(deck) {
-
+    var initiative = null;
     if (deck.must_reshuffle()) {
         reshuffle(deck, true);
     }
@@ -450,11 +476,12 @@ function draw_ability_card(deck) {
         visible_ability_decks.forEach(function (visible_deck) {
             if (visible_deck.class == deck.class) {
                 visible_deck.draw_top_card();
-                flip_up_top_card(visible_deck);
+                initiative = flip_up_top_card(visible_deck);
             }
         });
     }
     write_to_storage(deck.name, JSON.stringify(deck));
+    return initiative;
 }
 
 function prevent_pull_animation(deck) {
@@ -721,7 +748,6 @@ function get_monster_stats(name, level) {
 }
 
 function get_boss_stats(name, level) {
-    name = name.replace("Boss: ", "");
     var attack = [MONSTER_STATS["bosses"][name]["level"][level]["attack"]];
     var move = [MONSTER_STATS["bosses"][name]["level"][level]["move"]];
     var range = [MONSTER_STATS["bosses"][name]["level"][level]["range"]];
@@ -729,7 +755,55 @@ function get_boss_stats(name, level) {
     var special2 = MONSTER_STATS["bosses"][name]["level"][level]["special2"];
     var immunities = MONSTER_STATS["bosses"][name]["level"][level]["immunities"];
     var notes = MONSTER_STATS["bosses"][name]["level"][level]["notes"];
-	var health = [MONSTER_STATS["bosses"][name]["level"][level]["health"]];
+    var health = [MONSTER_STATS["bosses"][name]["level"][level]["health"]];
+    
+    var numberOfCharacters = document.getElementById("number-of-characters").value;
+    var scenarioLevel = document.getElementById("scenario-level").value;
+    attack = attack.map((value) => {
+        if (value && typeof value === "string" && value.startsWith("${")) {
+            var expressionStartIndex = value.indexOf("${") + 2;
+            var expressionEndIndex = value.indexOf("}", expressionStartIndex);
+            var expressionToEvaluate = value.substring(expressionStartIndex, expressionEndIndex);
+            value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
+        }
+        return value;
+    });
+    
+    health = health.map((value) => {
+        if (value && typeof value === "string" && value.startsWith("${")) {
+            var expressionStartIndex = value.indexOf("${") + 2;
+            var expressionEndIndex = value.indexOf("}", expressionStartIndex);
+            var expressionToEvaluate = value.substring(expressionStartIndex, expressionEndIndex);
+            value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
+        }
+        return value;
+    });
+
+    special1 = special1.map((line) => {
+        if (line && typeof line === "string" && line.indexOf("${") !== -1) {
+            while (line.indexOf("${") !== -1) {
+                var expressionStartIndex = line.indexOf("${") + 2;
+                var expressionEndIndex = line.indexOf("}", expressionStartIndex);
+                var expressionToEvaluate = line.substring(expressionStartIndex, expressionEndIndex);
+                var value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
+                line = line.substring(0, expressionStartIndex - 2) + value + line.substring(expressionEndIndex + 1);
+            }
+        }
+        return line;
+    });
+
+    special2 = special2.map((line) => {
+        if (line && typeof line === "string" && line.indexOf("${") !== -1) {
+            while (line.indexOf("${") !== -1) {
+                var expressionStartIndex = line.indexOf("${") + 2;
+                var expressionEndIndex = line.indexOf("}", expressionStartIndex);
+                var expressionToEvaluate = line.substring(expressionStartIndex, expressionEndIndex);
+                var value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
+                line = line.substring(0, expressionStartIndex) + value + line.substring(expressionEndIndex + 1);
+            }
+        }
+        return line;
+    });
 
     return {
         "attack": attack,
@@ -744,7 +818,8 @@ function get_boss_stats(name, level) {
 }
 
 function apply_deck_selection(decks, preserve_existing_deck_state) {
-    var container = document.getElementById("tableau");
+    var container = document.getElementsByClassName("game-view")[0];
+    var cardsContainer = document.getElementById("tableau");
     document.getElementById("currentdeckslist").innerHTML = "";
     var decks_to_remove = visible_ability_decks.filter(function (visible_deck) {
         return !preserve_existing_deck_state || (decks.filter(function (deck) {
@@ -798,14 +873,21 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
         deck_space.className = "card-container";
         deck_space.title = "Click to draw enemy ability";
 
-        container.appendChild(deck_space);
+        cardsContainer.appendChild(deck_space);
 
         place_deck(deck, deck_space);
         reshuffle(deck, !preserve_existing_deck_state);
         if (preserve_existing_deck_state) {
 
         }
-        deck_space.onclick = draw_ability_card.bind(null, deck);
+        deck_space.onclick = () => {
+            var initiative = draw_ability_card(deck);
+            if (initiative) {
+                deck_space.setAttribute("initiative", initiative);
+            } else {
+                deck_space.removeAttribute("initiative");
+            }
+        };
 
         deck.discard_deck = function () {
             var index = visible_ability_decks.indexOf(this);
@@ -814,7 +896,7 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
                 visible_ability_decks.splice(index, 1);
             }
 
-            container.removeChild(deck_space);
+            cardsContainer.removeChild(deck_space);
         };
 
         if (deck.is_boss()) {
@@ -843,9 +925,11 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
         label.href = "#switch-" + deckid
         label.innerText = deck.get_real_name();
         label.title = "Click to show/hide deck";
+        label.style.color = "white";
         label.addEventListener("click", function(e){
             var d = document.getElementById(this.id.replace("switch-",""));
-            d.className = (d.className == "hiddendeck") ? "card-container" : "hiddendeck";
+            d.className = (d.className === "hiddendeck") ? "card-container" : "hiddendeck";
+            label.style.color = (d.className !== "hiddendeck") ? "white" : "#808594";
         }, false)
         list_item.appendChild(label);
     });
@@ -885,19 +969,20 @@ function add_modifier_deck(container, deck, preserve_discards) {
         }
 
         var widget_container = document.createElement("div");
-        widget_container.className = "counter-icon";
+        widget_container.className = "increment-widget";
         widget_container.title = title;
 
         var background = document.createElement("div");
         background.className = "background " + card_type;
-        widget_container.appendChild(background);
 
         var text_element = document.createElement("div");
         text_element.className = "icon-text";
         text_element.innerText = "0";
 
+        background.appendChild(text_element);
+
         widget_container.appendChild(create_button("decrement", "-", decrement_func, text_element));
-        widget_container.appendChild(text_element);
+        widget_container.appendChild(background);
         widget_container.appendChild(create_button("increment", "+", increment_func, text_element));
 
         document.body.addEventListener(EVENT_NAMES.MODIFIER_CARD_DRAWN, function (e) {
@@ -911,15 +996,15 @@ function add_modifier_deck(container, deck, preserve_discards) {
 
     function indicate_shuffle_required(e){
         if (e.detail.shuffle){
-            window.setTimeout(function() { end_round_div.className = "counter-icon shuffle"; }, 400);
+            window.setTimeout(function() { end_round_div.className = "shuffle"; }, 400);
         }
         else{
-            end_round_div.className = "counter-icon shuffle not-required";
+            end_round_div.className = "shuffle not-required";
         }
     }
 
     var modifier_container = document.createElement("div");
-    modifier_container.className = "card-container";
+    // modifier_container.className = "card-container";
     modifier_container.id = "modifier-container";
 
     var button_div = document.createElement("div");
@@ -929,7 +1014,7 @@ function add_modifier_deck(container, deck, preserve_discards) {
     button_div.appendChild(create_counter("curse", deck.add_card, deck.remove_card, "Curse cards"));
 
     var end_round_div = document.createElement("div");
-    end_round_div.className = "counter-icon shuffle not-required";
+    end_round_div.className = "shuffle not-required";
     end_round_div.onclick = end_round;
     end_round_div.title = "Click to end round and shuffle";
 
@@ -943,17 +1028,21 @@ function add_modifier_deck(container, deck, preserve_discards) {
     deck_space.className = "card-container modifier";
     deck_space.title = "Click to draw one card";
 
+    var draw_two_reshuffle_column = document.createElement("div");
+    draw_two_reshuffle_column.className = "modifier-deck-column-3";
+
     var draw_two_button = document.createElement("div");
     draw_two_button.className = "button draw-two";
     draw_two_button.onclick = double_draw.bind(null, modifier_deck);
     draw_two_button.title = "Click to draw two cards";
 
     deck_column.appendChild(deck_space);
-    deck_column.appendChild(draw_two_button);
-    deck_column.appendChild(end_round_div);
+    draw_two_reshuffle_column.appendChild(draw_two_button);
+    draw_two_reshuffle_column.appendChild(end_round_div);
 
-    modifier_container.appendChild(deck_column);
     modifier_container.appendChild(button_div);
+    modifier_container.appendChild(deck_column);
+    modifier_container.appendChild(draw_two_reshuffle_column);
 
     container.appendChild(modifier_container);
 
@@ -1014,21 +1103,28 @@ function DeckList() {
 
     decklist.ul.appendChild(listitem);
 
-    var key;
-    for (key in DECKS) {
-        var real_name = DECKS[key].name;
+    var keys = [];
+    for (var key in DECKS) {
+        keys.push(key);
+    }
+    keys = keys.sort((keyA, keyB) => {
+        if(keyA < keyB) { return -1; }
+        if(keyA > keyB) { return 1; }
+        return 0;
+    });
+    keys.forEach((key) => {
+        var real_name = key;
         var listitem = document.createElement("li");
         var dom_dict = create_input("checkbox", "deck", real_name, real_name);
         listitem.appendChild(dom_dict.root);
-
+    
         var level_selector = new LevelSelector(" with level ", true);
         listitem.appendChild(level_selector.html);
-
+    
         decklist.ul.appendChild(listitem);
         decklist.checkboxes[real_name] = dom_dict.input;
         decklist.level_selectors[real_name] = level_selector;
-
-    }
+    });
 
     decklist.get_selection = function () {
         return dict_values(this.checkboxes).filter(is_checked).map(input_value);
@@ -1076,7 +1172,9 @@ function ScenarioList(scenarios) {
 
     for (var i = 0; i < scenarios.length; i++) {
         var scenario = scenarios[i];
-        scenariolist.decks[i] = scenario.decks;
+        scenariolist.decks[i] = scenario.decks.map((deck) => {
+            return DECKS[(deck["deck_name"] || deck["name"])];
+        });
         scenariolist.special_rules[i] = scenario.special_rules ? scenario.special_rules : "";
     }
 
@@ -1085,6 +1183,7 @@ function ScenarioList(scenarios) {
     scenariolist.ul.appendChild(listitem);
 
     var scenario_spinner = create_input("number", "scenario_number", "1", "");
+    scenario_spinner.input.id = "scenario-level";
     scenario_spinner.input.min = 1;
     scenario_spinner.input.max = scenarios.length;
     scenariolist.ul.appendChild(scenario_spinner.input);
@@ -1109,11 +1208,6 @@ function ScenarioList(scenarios) {
 
     scenariolist.get_scenario_decks = function () {
         return (this.decks[this.get_selection()].map(function (deck) {
-            if (DECKS[deck.name]) {
-                deck.class = DECKS[deck.name].class;
-            } else if (deck.name.indexOf("Boss") != -1) {
-                deck.class = DECKS["Boss"].class;
-            }
             deck.level = scenariolist.get_level(deck.name, scenariolist.get_special_rules());
             return deck;
         }));
@@ -1126,12 +1220,32 @@ function ScenarioList(scenarios) {
     return scenariolist;
 }
 
+function clearElement(element) {
+    if (element) {
+        while (element.firstChild) {
+            if (element.firstChild.id && element.firstChild.id.indexOf("bottom")) {
+                break;
+            }
+            element.removeChild(element.firstChild);
+        }
+    }
+}
+
+function isScenarioTabActive() {
+    var scenariospage = document.getElementById("scenariospage");
+    return scenariospage && scenariospage.className.indexOf("inactive") === -1;
+}
+
 function init() {
     var deckspage = document.getElementById("deckspage");
     var scenariospage = document.getElementById("scenariospage");
-    var applydeckbtn = document.getElementById("applydecks");
-    var applyscenariobtn = document.getElementById("applyscenario");
-    var applyloadbtn = document.getElementById("applyload");
+
+    [deckspage, scenariospage].forEach((element) => {
+        clearElement(element);
+    });
+
+    var applybtn = document.getElementById("apply");
+    // var applyloadbtn = document.getElementById("applyload");
     var showmodifierdeck = document.getElementById("showmodifierdeck");
 
     var decklist = new DeckList();
@@ -1140,33 +1254,22 @@ function init() {
     deckspage.insertAdjacentElement("afterbegin", decklist.ul);
     scenariospage.insertAdjacentElement("afterbegin", scenariolist.ul);
 
-    applydeckbtn.onclick = function () {
-        localStorage.clear();
-        var selected_deck_names = decklist.get_selected_decks();
-        write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
-        var selected_decks = selected_deck_names.map(function (deck_names) {
-            return load_ability_deck(deck_names.class, deck_names.name, deck_names.level);
-        });
-        apply_deck_selection(selected_decks, true);
-        var showmodifierdeck_deckspage = document.getElementById("showmodifierdeck-deckspage");
-        var modifier_deck_section = document.getElementById("modifier-container");
-        if(!showmodifierdeck_deckspage.checked){
-            modifier_deck_section.style.display = "none";
-        }
-        else{
-            modifier_deck_section.style.display = "block";
-        }
-    };
-
-    applyscenariobtn.onclick = function () {
+    applybtn.onclick = function () {
         try { localStorage.clear(); } catch (e) { console.error('Local storage is required'); return; }
-        var selected_deck_names = scenariolist.get_scenario_decks();
-        write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
-        decklist.set_selection(selected_deck_names);
+        var isScenarioTab = isScenarioTabActive();
+        if (isScenarioTab) {
+            var selected_deck_names = scenariolist.get_scenario_decks();
+            write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
+            decklist.set_selection(selected_deck_names);
+        } else {
+            var selected_deck_names = decklist.get_selected_decks();
+            write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
+        }
+        
         var selected_decks = selected_deck_names.map(function (deck_names) {
             return load_ability_deck(deck_names.class, deck_names.name, deck_names.level);
         });
-        apply_deck_selection(selected_decks, false);
+        apply_deck_selection(selected_decks, !isScenarioTab);
         var modifier_deck_section = document.getElementById("modifier-container");
         if(!showmodifierdeck.checked){
             modifier_deck_section.style.display = "none";
@@ -1178,22 +1281,6 @@ function init() {
         // assume user is ready to go, so hide the Settings menu
         show_settingspane(settingspane, cancelarea, false);
     };
-
-    applyloadbtn.onclick = function () {
-        var selected_deck_names = JSON.parse(get_from_storage("selected_deck_names"));
-        decklist.set_selection(selected_deck_names);
-        var selected_decks = selected_deck_names.map(function (deck_names) {
-            return load_ability_deck(deck_names.class, deck_names.name, deck_names.level);
-        });
-        apply_deck_selection(selected_decks, true);
-        var modifier_deck_section = document.getElementById("modifier-container");
-        if(!showmodifierdeck.checked){
-            modifier_deck_section.style.display = "none";
-        }
-        else{
-            modifier_deck_section.style.display = "block";
-        }
-    }
 
     window.onresize = refresh_ui.bind(null, visible_ability_decks);
 }

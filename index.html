@@ -29,28 +29,43 @@
                     <li id="scenariotab">Scenario</li>
                     <li id="deckstab">Decks</li>
                 </ul>
+                <div id="game-container">
+                    <select id="game" name="Game" onchange="changeGame();">
+                        <option value="gloomhaven">Gloomhaven</option>
+                        <option value="jaws-of-the-lion">Jaws of the Lion</option>
+                    </select><br />
+                    <div id="use-forgotten-circles-container">
+                        <input id="use-forgotten-circles" type="checkbox" checkbox onclick="changeGame();"/><label id="use-forgotten-circles-label" for="use-forgotten-circles">Forgotten Circles</label><br /><br />
+                    </div>
+                    <ul class="selectionlist">
+                        <li># of Characters</li>
+                        <input id="number-of-characters" type="number" name="character_count" min="1" max="4" value="1">
+                    </ul>
+                </div>
                 <div id="scenariospage" class="tabbody">
-                    <input id="showmodifierdeck" type="checkbox" checked /><label for="showmodifierdeck">Show Monster Modifier Deck</label>
-                    <p>
-                      <input id="applyscenario" type="button" value="Apply" />
-                      <input id="applyload" type="button" value="Load Previous Scenario" />
-                    </p>
                 </div>
                 <div id="deckspage" class="tabbody">
-                    <input id="showmodifierdeck-deckspage" type="checkbox" checked /><label for="showmodifierdeck-deckspage">Show Monster Modifier Deck</label>
-                    <input id="applydecks" type="button" value="Apply" />
+                </div>
+                <div id="bottom">
+                    <!-- <input id="applyload" type="button" value="Load Previous Scenario" /> -->
+                    <input id="showmodifierdeck" type="checkbox" checked /><label for="showmodifierdeck">Show Monster Modifier Deck</label>
+                    <input id="apply" type="button" value="Apply" />
                 </div>
             </div>
             <div id="cancelarea">
             </div>
         </div>
-        <div>
-            <input alt="Configure" id="settingsbtn" type="image" src="images/settings.svg" />
-            <div id="currentdecks">
-                <ul id="currentdeckslist" class="currentdeckslist">
-
-                </ul>
+        <div class="header">
+            <div class="menu-bar">
+                <input alt="Configure" id="settingsbtn" type="image" src="images/settings.svg" />
+                <div id="currentdecks">
+                    <ul id="currentdeckslist" class="currentdeckslist">
+                    </ul>
+                </div>
             </div>
+            <div class="game-view">
+            </div>
+            <img id="initiative-sort" src="images/sort-numeric-asc.svg"></img>
         </div>
         <div id="tableau" style="font-size: 26.6px;"> <!-- base font size for all cards. Placed here to make it adjustable from javascript -->
         </div>
