@@ -97,6 +97,9 @@ function init_ui()
         var tableau = document.querySelector("#tableau");
         var header = document.querySelector(".header");
         var initiativeSort = document.querySelector("#initiative-sort");
+        var paneContainer = document.querySelector(".panecontainer");
+        var settingsButton = document.getElementById("settingsbtn");
+        var currentDecks = document.getElementById("currentdecks");
         if (modifierDeckIsLocked.hasAttribute("locked")) {
             modifierDeckIsLocked.removeAttribute("locked");
             modifierDeckIsLocked.setAttribute("src", "images/lock.svg");
@@ -106,9 +109,13 @@ function init_ui()
             document.body.insertBefore(initiativeSort, modifierDeckIsLocked);
             initiativeSort.style.top = "402px";
             modifierDeckIsLocked.style.top = "444px";
-            gameView.style.paddingTop = "150px";
+            gameView.style.paddingTop = "150px"; // del
             tableau.style.paddingTop = "0px";
-            header.style.height = "50px";
+            header.style.height = "150px"; // auto
+            // paneContainer.style.position = "static";
+            // settingsButton.style.position = "static";
+            // header.style.position = "static";
+            // currentDecks.style.position = "static";
         } else {
             modifierDeckIsLocked.setAttribute("locked", "");
             modifierDeckIsLocked.setAttribute("src", "images/unlock-alt.svg");
@@ -118,9 +125,13 @@ function init_ui()
             header.appendChild(modifierDeckIsLocked);
             initiativeSort.style.top = "300px";
             modifierDeckIsLocked.style.top = "342px";
-            gameView.style.paddingTop = "0px";
+            gameView.style.paddingTop = "0px"; // del
             tableau.style.paddingTop = "300px";
             header.style.height = "280px";
+            // paneContainer.style.position = "fixed";
+            // settingsButton.style.position = "fixed";
+            // header.style.position = "fixed";
+            // currentDecks.style.position = "relative";
         }
     };
 }
