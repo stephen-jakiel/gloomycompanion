@@ -956,6 +956,18 @@ function count_type(type, deck) {
     return count;
 }
 
+function create_button(class_name, text, func, text_element, card_type) {
+    var button = document.createElement("div");
+    button.className = class_name + " button";
+    button.innerText = text;
+
+    button.onclick = function () {
+        text_element.innerText = func(card_type);
+    };
+
+    return button;
+}
+
 function add_modifier_deck(container, deck, preserve_discards) {
     function create_counter(card_type, increment_func, decrement_func, title) {
         function create_button(class_name, text, func, text_element) {
@@ -1011,8 +1023,75 @@ function add_modifier_deck(container, deck, preserve_discards) {
     var button_div = document.createElement("div");
     button_div.className = "modifier-deck-column-1";
 
-    button_div.appendChild(create_counter("bless", deck.add_card, deck.remove_card, "Bless cards"));
-    button_div.appendChild(create_counter("curse", deck.add_card, deck.remove_card, "Curse cards"));
+    var counterTable = document.createElement("table");
+    counterTable.id = "bless-curse-counter-table";
+
+    var incrementRow = document.createElement("tr");
+    var iconRow = document.createElement("tr");
+    var countRow = document.createElement("tr");
+    var decrementRow = document.createElement("tr");
+    var blessIncrement = document.createElement("td");
+    blessIncrement.style.paddingBottom = "5px";
+    var curseIncrement = document.createElement("td");
+    curseIncrement.style.paddingBottom = "5px";
+    var blessIcon = document.createElement("td");
+    var curseIcon = document.createElement("td");
+    var blessCount = document.createElement("td");
+    var curseCount = document.createElement("td");
+    var blessDecrement = document.createElement("td");
+    blessDecrement.style.paddingTop = "5px";
+    var curseDecrement = document.createElement("td");
+    curseDecrement.style.paddingTop = "5px";
+
+    var blessCountText = document.createElement("div");
+    blessCountText.className = "icon-text";
+    blessCountText.innerText = "0";
+    blessCount.appendChild(blessCountText);
+    blessIncrement.appendChild(create_button("increment", "+", deck.add_card, blessCountText, "bless"));
+
+    var curseCountText = document.createElement("div");
+    curseCountText.className = "icon-text";
+    curseCountText.innerText = "0";
+    curseCount.appendChild(curseCountText);
+    curseIncrement.appendChild(create_button("increment", "+", deck.add_card, curseCountText, "curse"));
+
+    var blessBackground = document.createElement("div");
+    blessBackground.className = "background bless";
+    blessIcon.appendChild(blessBackground);
+
+    var curseBackground = document.createElement("div");
+    curseBackground.className = "background curse";
+    curseIcon.appendChild(curseBackground);
+
+    blessDecrement.appendChild(create_button("decrement", "+", deck.remove_card, blessCountText, "bless"));
+    curseDecrement.appendChild(create_button("decrement", "+", deck.remove_card, curseCountText, "curse"));
+
+    document.body.addEventListener(EVENT_NAMES.MODIFIER_CARD_DRAWN, function (e) {
+        if (e.detail.card_type === "bless") {
+            blessCountText.innerText = e.detail.count;
+        } else if (e.detail.card_type === "curse") {
+            curseCountText.innerText = e.detail.count;
+        }
+    });
+
+    incrementRow.appendChild(blessIncrement);
+    incrementRow.appendChild(curseIncrement);
+
+    iconRow.appendChild(blessIcon);
+    iconRow.appendChild(curseIcon);
+
+    countRow.appendChild(blessCount);
+    countRow.appendChild(curseCount);
+
+    decrementRow.appendChild(blessDecrement);
+    decrementRow.appendChild(curseDecrement);
+
+    counterTable.appendChild(incrementRow);
+    counterTable.appendChild(iconRow);
+    counterTable.appendChild(countRow);
+    counterTable.appendChild(decrementRow);
+
+    button_div.appendChild(counterTable);
 
     var end_round_div = document.createElement("div");
     end_round_div.className = "shuffle not-required";

@@ -54,6 +54,14 @@ select {
     top: 342px;
 }
 
+#bless-curse-counter-table {
+    margin: auto;
+}
+
+#bless-curse-counter-table td {
+    padding: 0 10px;
+}
+
 #game-container {
     min-height: 90px;
     padding: 0 1em;

@@ -43,17 +43,12 @@
 
 .icon-text
 {
-    line-height: 32px;
     z-index: 10;
     text-align:                 center;
     color:                      white;
     text-shadow: 0 5px 12px rgba(0,0,0,0.9);
     font-family:                'Nyala', 'Sakkal Majalla', 'Philosopher', sans-serif;
     font-size:                  24px;
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    width: 23px;
 }
 
 .background.curse
@@ -67,7 +62,6 @@
     z-index: -1;
     background-color: Transparent;
     background-repeat: no-repeat;
-    margin-right: 5px;
 }
 
 .background.bless
@@ -81,7 +75,6 @@
     z-index: -1;
     background-color: Transparent;
     background-repeat: no-repeat;
-    margin-right: 5px;
 }
 
 .shuffle
@@ -104,29 +97,24 @@
 
 .increment.button
 {
-    opacity: 0.7;
     text-indent: -999em;
     background: url(images/plus-circle.svg) center center no-repeat;
     width: 24px;
     height: 24px;
-    vertical-align: middle;
-    display: inline-block;
     user-select: none;
     cursor: pointer;
+    margin: auto;
 }
 
 .decrement.button
 {
-    opacity: 0.7;
     text-indent: -999em;
     background: url(images/minus-circle.svg) center center no-repeat;
     width: 24px;
     height: 24px;
-    vertical-align: middle;
-    display: inline-block;
     user-select: none;
     cursor: pointer;
-    margin-right: 10px;
+    margin: auto;
 }
 
 .draw-two.button
