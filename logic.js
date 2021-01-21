@@ -1275,13 +1275,31 @@ function init() {
             return load_ability_deck(deck_names.class, deck_names.name, deck_names.level);
         });
         apply_deck_selection(selected_decks, !isScenarioTab);
-        var modifier_deck_section = document.getElementById("modifier-container");
+        var modifier_deck_section = document.querySelector(".game-view");
+        var modifierDeckIsLocked = document.getElementById("modifier-deck-is-locked");
+        var tableau = document.querySelector("#tableau");
+        var header = document.querySelector(".header");
+        var initiativeSort = document.querySelector("#initiative-sort");
         if(!showmodifierdeck.checked){
             modifier_deck_section.style.display = "none";
+            modifierDeckIsLocked.style.display = "none";
+            header.style.height = "50px";
+            tableau.style.paddingTop = "50px";
+            initiativeSort.style.top = "50px";
         }
         else{
             modifier_deck_section.style.display = "block";
+            modifierDeckIsLocked.style.display = "block";
+            header.style.height = "280px";
+            tableau.style.paddingTop = "300px";
+            initiativeSort.style.top = "300px";
+
+            if (!modifierDeckIsLocked.hasAttribute("locked")) {
+                modifierDeckIsLocked.setAttribute("locked", "");
+                modifierDeckIsLocked.click();
+            }
         }
+
 
         // assume user is ready to go, so hide the Settings menu
         show_settingspane(settingspane, cancelarea, false);
