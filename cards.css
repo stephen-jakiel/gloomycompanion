@@ -41,9 +41,6 @@
     max-height: 222px;
 }
 
-image.cover {
-}
-
 .icon-text
 {
     line-height: 32px;
@@ -53,6 +50,10 @@ image.cover {
     text-shadow: 0 5px 12px rgba(0,0,0,0.9);
     font-family:                'Nyala', 'Sakkal Majalla', 'Philosopher', sans-serif;
     font-size:                  24px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 23px;
 }
 
 .background.curse
@@ -63,11 +64,10 @@ image.cover {
     height: 32px;
     vertical-align: middle;
     background-size: contain;
-    opacity: 0.5;
     z-index: -1;
     background-color: Transparent;
     background-repeat: no-repeat;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .background.bless
@@ -78,11 +78,10 @@ image.cover {
     height: 32px;
     vertical-align: middle;
     background-size: contain;
-    opacity: 0.5;
     z-index: -1;
     background-color: Transparent;
     background-repeat: no-repeat;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .shuffle

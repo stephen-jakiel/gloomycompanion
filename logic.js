@@ -980,11 +980,10 @@ function add_modifier_deck(container, deck, preserve_discards) {
         var text_element = document.createElement("div");
         text_element.className = "icon-text";
         text_element.innerText = "0";
-
-        background.appendChild(text_element);
-
+        
         widget_container.appendChild(create_button("decrement", "-", decrement_func, text_element));
         widget_container.appendChild(background);
+        widget_container.appendChild(text_element);
         widget_container.appendChild(create_button("increment", "+", increment_func, text_element));
 
         document.body.addEventListener(EVENT_NAMES.MODIFIER_CARD_DRAWN, function (e) {
