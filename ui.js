@@ -95,9 +95,9 @@ function init_ui()
 function changeGame() {
     var gameDropdown = document.getElementById("game");
     if (gameDropdown.value === 'gloomhaven') {
-        document.getElementById('use-forgotten-circles-container').style.display = '';
+        document.getElementById('use-forgotten-circles-container').style.visibility = '';
     } else if (gameDropdown.value === 'jaws-of-the-lion') {
-        document.getElementById('use-forgotten-circles-container').style.display = 'none';
+        document.getElementById('use-forgotten-circles-container').style.visibility = 'hidden';
     }
 
     var isJawsOfTheLion = false;

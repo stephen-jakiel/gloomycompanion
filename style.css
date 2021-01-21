@@ -51,8 +51,12 @@ select {
     padding: 0 1em;
 }
 
+#use-forgotten-circles-container {
+    padding-bottom: 1em;
+}
+
 #bottom {
-    padding: 0 1em;
+    padding: 1em;
 }
 
 input[type="button"] {
@@ -131,7 +135,6 @@ ul.tabcontainer .inactive
 .tabbody
 {
     padding:            1em;
-    margin-bottom:      4em;
 }
 
 .tabbody.inactive
@@ -148,6 +151,7 @@ ul.tabcontainer .inactive
 {
     list-style:         none;
     padding:            0;
+    margin:             0;
 }
 
 .panecontainer

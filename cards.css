@@ -286,6 +286,10 @@ image.cover {
     background-image:           url(images/front.jpg);
 }
 
+.card.ability.front > .name {
+    opacity: 0.0;
+}
+
 .card.ability.back
 {
     background-image:           url(images/back.jpg);
@@ -368,11 +372,10 @@ div.monster-attack-deck-instruction {
     color: black;
     background-image: linear-gradient(to right, rgb(0, 255, 255), rgb(170, 255, 255));
     padding: 4px 0;
-    position: absolute;
-    bottom: 10px;
     width: 70%;
     font-size: 14px;
-    left: 24%;
+    display: inline-block;
+    margin-top: 20px;
 }
 
 .small

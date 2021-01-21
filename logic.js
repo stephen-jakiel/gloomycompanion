@@ -3,6 +3,8 @@ var do_shuffles = true;
 var visible_ability_decks = [];
 var modifier_deck = null;
 
+var DECKLIST;
+
 var DECK_TYPES =
     {
         MODIFIER: "modifier",
@@ -78,7 +80,7 @@ function create_ability_card_front(initiative, name, title, shuffle, lines, atta
     name = name + "-" + level;
     if (!title || title === "") {
         title = name;
-        name = "";
+        name = "N/A";
     }
 
     var title_span = document.createElement("span");
@@ -1075,6 +1077,12 @@ function LevelSelector(text, inline) {
         this.spinner.value = (value > max_level) ? max_level : value;
     }
 
+    level_spinner.input.onchange = (e) => {
+        for (var key in DECKLIST.level_selectors) {
+            DECKLIST.level_selectors[key].set_value(DECKLIST.global_level_selector.get_selection());
+        }
+    };
+
     return level;
 }
 
@@ -1091,15 +1099,6 @@ function DeckList() {
     var global_level_selector = new LevelSelector("Select global level ", true);
     listitem.appendChild(global_level_selector.html);
     decklist.global_level_selector = global_level_selector;
-
-    var dom_dict = create_input("button", "applylevel", "Apply All", "");
-    dom_dict.input.onclick = function () {
-        var key;
-        for (key in decklist.level_selectors) {
-            decklist.level_selectors[key].set_value(decklist.global_level_selector.get_selection());
-        }
-    };
-    listitem.appendChild(dom_dict.root);
 
     decklist.ul.appendChild(listitem);
 
@@ -1189,6 +1188,12 @@ function ScenarioList(scenarios) {
     scenariolist.ul.appendChild(scenario_spinner.input);
     scenariolist.spinner = scenario_spinner.input;
 
+    scenario_spinner.input.onchange = (e) => {
+        for (var key in DECKLIST.level_selectors) {
+            DECKLIST.level_selectors[key].set_value(DECKLIST.global_level_selector.get_selection());
+        }
+    };
+
     scenariolist.get_selection = function () {
         // We're using the scenario index that is zero-based, but the scenario list is 1-based
         var current_value = scenariolist.spinner.value - 1;
@@ -1248,10 +1253,10 @@ function init() {
     // var applyloadbtn = document.getElementById("applyload");
     var showmodifierdeck = document.getElementById("showmodifierdeck");
 
-    var decklist = new DeckList();
+    DECKLIST = new DeckList();
     var scenariolist = new ScenarioList(SCENARIO_DEFINITIONS);
 
-    deckspage.insertAdjacentElement("afterbegin", decklist.ul);
+    deckspage.insertAdjacentElement("afterbegin", DECKLIST.ul);
     scenariospage.insertAdjacentElement("afterbegin", scenariolist.ul);
 
     applybtn.onclick = function () {
@@ -1260,9 +1265,9 @@ function init() {
         if (isScenarioTab) {
             var selected_deck_names = scenariolist.get_scenario_decks();
             write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
-            decklist.set_selection(selected_deck_names);
+            DECKLIST.set_selection(selected_deck_names);
         } else {
-            var selected_deck_names = decklist.get_selected_decks();
+            var selected_deck_names = DECKLIST.get_selected_decks();
             write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
         }
         
