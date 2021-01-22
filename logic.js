@@ -92,7 +92,7 @@ function create_ability_card_front(initiative, name, title, shuffle, lines, atta
 
     var name_span = document.createElement("span");
     if (name === "N/A") {
-        name_span.setAttribute("hidden", "");
+        name_span.style.visibility = "hidden";
     }
     name_span.className = "name";
     name_span.innerText = name;
