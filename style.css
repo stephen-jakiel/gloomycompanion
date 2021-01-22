@@ -38,6 +38,16 @@ select {
     margin-bottom: 30px;
 }
 
+.small-table {
+    margin-bottom: -10px;
+    font-size: 90%;
+}
+
+.smaller-table {
+    margin-bottom: -20px;
+    font-size: 90%;
+}
+
 #initiative-sort {
     width: 32px;
     height: 32px;

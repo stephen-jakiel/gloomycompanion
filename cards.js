@@ -424,7 +424,7 @@ FORGOTTEN_CIRCLES_DECK_DEFINITIONS.push({
     class: "Savage",
     cards: [
       ["", false, "13", "* %strengthen%", "** Self", "* %attack% +0", "** %wound%", "* Savage suffers 2 damage."]
-    , ["", true,  "17", "* %retaliate% 3", "** %range% 3", "* %heal% 1", "** %regenerate%", "*** Self"]
+    , ["", true,  "17", "* %retaliate% 3", "** %range% 3", "* %heal% 1", "** %regenerate%", "** Self"]
     , ["", false, "28", "* %move% +0", "* %attack% -1", "* %attack% -1"]
     , ["", false, "38", "* %move% -1", "* %attack% +0", "** %pierce% 2"]
     , ["", false, "46", "* %move% +0", "* %attack% -1", "** %range% 3"]
@@ -437,13 +437,13 @@ FORGOTTEN_CIRCLES_DECK_DEFINITIONS.push({
     class: "Tracker",
     cards: [
       ["", false, "12", "* %move% +0", "* %attack% -1", "** %muddle%"]
-    , ["", false, "18", "* %move% -1", "* %attack% -1", "* <span class='small'> Create one %disarm% trap in any adjacent empty hex closest to an enemy.</span>"]
+    , ["", false, "18", "* %move% -1", "* %attack% -1", "** <span class='small'> Create one %disarm% trap in any adjacent empty hex closest to an enemy.</span>"]
     , ["", false, "27", "* %move% +0", "* %attack% +0"]
     , ["", true,  "33", "* %move% +0", "* %attack% +0", "** %range% +1", "** %pierce% 1"]
     , ["", false, "37", "* %move% -1", "* %attack% +0", "** %range% +1", "** %immobilize%"]
     , ["", false, "48", "* <span class='small'>%elite% Focus on the enemy with the lowest current hit point value</span>", "* %move% +1", "* %attack% +0"]
     , ["", false, "55", "* <span class='small'>%elite% Focus on the enemy with the highest current hit point value</span>", "* %move% +0", "* %attack% -1", "** %wound%"]
-    , ["", true,  "69", "* %attack% +1", "* %heal% 1", "** %regenerate%", "*** Self"]
+    , ["", true,  "69", "* %attack% +1", "* %heal% 1", "** %regenerate%", "** Self"]
     ]
 });
 
@@ -564,7 +564,7 @@ JAWS_OF_THE_LION_DECK_DEFINITIONS =
         , ["Nothing Special", true, "68", "* %move% +0", "* %attack% +0"]
         , ["Calculated Strike", false, "81", "* %move% -1", "* %attack% +1"]
         , ["Reckless Charge", false, "91", "* %move% +2", "** <span class='small'> If this movement is performed, <br/> the Living Corpse suffers 1 damage. </span>"]
-        , ["Release Gas", false, "71", "* %move% +0", "* <table align='center'><tr> <td> <table align='center'><tr> <td> %attack% +1 </td> </tr> <tr> <td> %poison% </td> </tr> <tr> <td> <span class='small'> Target all adjacent enemies </span> </td> </tr> </table> </td> <td> %earth% </td> </tr> </table>"]
+        , ["Release Gas", false, "71", "* <table align='center'> <tr> <td> <span class='small'> %move% +0 </span> </td> <td> </td> </tr> <tr> <td> <table align='center'><tr> <td> <span class='small'> %attack% +1 </span> </td> </tr> <tr> <td> <span class='smaller'> %poison% </span> </td> </tr> <tr> <td> <span class='smaller'> Target all adjacent enemies </span> </td> </tr> </table> </td> <td> %earth% </td> </tr> </table>"]
         , ["Violent Slam", false, "32", "* %attack% +2", "** %push% 1", "** <span class='small'> If this attack is performed, the Living <br/> Corpse suffers 1 damage. </span>"]
         ]
     },
@@ -575,7 +575,7 @@ JAWS_OF_THE_LION_DECK_DEFINITIONS =
         , ["Nothing Special", false, "48", "* %move% +0", "* %attack% +0", "** %range% 3"]
         , ["Nothing Special", false, "48", "* %move% +0", "* %attack% +0", "** %range% 3"]
         , ["Coupled Chain", false, "61", "* %attack% +0", "** %range% 3", "** %target% 2"]
-        , ["Leech Warmth", false, "75", "* %move% -1", "* <table align='center'><tr> <td> <table align='center'><tr> <td> %attack% +1 </td> </tr> <tr> <td> <span class='small'> %range% 3 </span> </td> </tr> <tr> <td> %heal% 1 <td/> </tr> <tr> <td> <span class='small'> Self </span> </td> </tr> </table> </td> <td> %ice% </td> </tr> </table>"]
+        , ["Leech Warmth", false, "75", "* <table align='center' class='smaller-table'> <tr> <td> <span class='small'> %move% -1 </span> </td> <td> </td> </tr> <tr> <td> <table align='center'><tr> <td> <span class='small'> %attack% +1 </span> </td> </tr> <tr> <td> <span class='smaller'> %range% 3 </span> </td> </tr> <tr> <td> <span class='small'> %heal% 1 </span> <td/> </tr> <tr> <td> <span class='smaller'> Self </span> </td> </tr> </table> </td> <td> %ice% </td> </tr> </table>"]
         , ["Angry Howl", false, "55", "* %move% +0", "* %curse%", "** Target all enemies within %range% 3", "* %ice%"]
         , ["Icy Glare", false, "67", "* %move% -1", "* %attack% +1", "** %range% 3", "* %ice%%use_element%: %disarm%"]
         ]
@@ -637,10 +637,10 @@ JAWS_OF_THE_LION_DECK_DEFINITIONS =
     , cards: 
         [ ["Hasty Assault", false, "35", "* %move% +1", "* %attack% -1"]
         , ["Calculated Strike", false, "65", "* %move% -1", "* %attack% +1"]
-        , ["Drain Life", true, "27", "* %move% +0", "* <table align='center'><tr> <td> <table align='center'><tr> <td> %attack% -1 </td> </tr> <tr> <td> <span class='small'> %range% 2 </span> </td> </tr> <tr> <td> %heal% X <td/> </tr> <tr> <td> <span class='small'> Self </span> </td> </tr> </table> </td> <td> %dark% </td> </tr> </table>", "** X is damage suffered by target of attack"]
+        , ["Drain Life", true, "27", "** <table align='center' class='small-table'> <tr> <td> <span class='small'> %move% +0 </span> </td> <td> </td> </tr> <tr> <td> <table align='center'><tr> <td> <span class='small'> %attack% -1 </span> </td> </tr> <tr> <td> <span class='smaller'> %range% 2 </span> </td> </tr> <tr> <td> <span class='small'> %heal% X </span> <td/> </tr> <tr> <td> <span class='smaller'> Self </span> </td> </tr> </table> </td> <td> %dark% </td> </tr> </table>", "** <span class='smaller'> X is damage suffered by target of attack </span>"]
         , ["Nothing Special", false, "50", "* %move% +0", "* %attack% +0"]
         , ["Hex Whip", false, "19", "* %move% +1", "** %jump%", "* %attack% -1", "** %curse%", "* %air%"]
-        , ["Vile Scourge", false, "77", "* %move% -1", "* <table align='center'> <tr> <td> <table align='center'> <tr> <td> %attack% -1 </td> </tr> <tr> <td> <span class='small'> %poison% </span> </td> </tr> <tr> <td> <span class='small'> %air%%use_element%: +1 %attack% </span> </td> </tr> </table> </td> <td> %aoe-triangle-2-side-with-black% </td> </tr> </table>"]
+        , ["Vile Scourge", false, "77", "* <table align='center'> <tr> <td> <span class='small'> %move% -1 </span> </td> <td> </td> </tr> <tr> <td> <table align='center'> <tr> <td> <span class='small'> %attack% -1 </span> </td> </tr> <tr> <td> <span class='smaller'> %poison% </span> </td> </tr> <tr> <td> <span class='small'> %air%%use_element%: +1 %attack% </span> </td> </tr> </table> </td> <td> %aoe-triangle-2-side-with-black% </td> </tr> </table>"]
         , ["Unholy Flame", true, "82", "* %attack% +1", "** %range% 3", "* %fire%"]
         , ["Boil Blood", false, "46", "* %attack% -1", "** %range% 2", "** %target% 2", "** %muddle%", "** %fire%%use_element%: +2 %range%"]
         ]

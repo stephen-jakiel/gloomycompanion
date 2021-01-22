@@ -91,6 +91,9 @@ function create_ability_card_front(initiative, name, title, shuffle, lines, atta
     card.appendChild(document.createElement("br"));
 
     var name_span = document.createElement("span");
+    if (name === "N/A") {
+        name_span.setAttribute("hidden", "");
+    }
     name_span.className = "name";
     name_span.innerText = name;
     card.appendChild(name_span);
@@ -801,7 +804,7 @@ function get_boss_stats(name, level) {
                 var expressionEndIndex = line.indexOf("}", expressionStartIndex);
                 var expressionToEvaluate = line.substring(expressionStartIndex, expressionEndIndex);
                 var value = Math.ceil(eval(expressionToEvaluate.replaceAll("C", numberOfCharacters).replaceAll("L", scenarioLevel)));
-                line = line.substring(0, expressionStartIndex) + value + line.substring(expressionEndIndex + 1);
+                line = line.substring(0, expressionStartIndex - 2) + value + line.substring(expressionEndIndex + 1);
             }
         }
         return line;

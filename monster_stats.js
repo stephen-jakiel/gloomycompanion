@@ -6885,7 +6885,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -6914,7 +6914,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -6943,7 +6943,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -6972,7 +6972,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -7001,7 +7001,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -7030,7 +7030,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -7059,7 +7059,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -7088,7 +7088,7 @@ GLOOMHAVEN_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
             "%range% 5",
             "%poison%",
@@ -15819,12 +15819,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15848,12 +15848,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15877,12 +15877,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15906,12 +15906,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15935,12 +15935,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15964,12 +15964,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -15993,12 +15993,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
-            "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "%teleport%",
+            "* %attack% +1",
+            "** %range% 5",
+            "** %poison%",
+            "** %wound%",
+            "** %stun%"
           ],
           "immunities": [
             "%wound%",
@@ -16022,12 +16022,12 @@ FORGOTTEN_CIRCLES_MONSTER_STATS = {
             "%attack% +9"
           ],
           "special2": [
-            "Teleport",
+            "%teleport%",
             "%attack% +1",
-            "%range% 5",
-            "%poison%",
-            "%wound%",
-            "%stun%"
+            "* %range% 5",
+            "* %poison%",
+            "* %wound%",
+            "* %stun%"
           ],
           "immunities": [
             "%wound%",

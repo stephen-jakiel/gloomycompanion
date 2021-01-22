@@ -273,7 +273,7 @@
     background-image:           url(images/front.jpg);
 }
 
-.card.ability.front > .name {
+.card.ability.front > .name[hidden=""] {
     opacity: 0.0;
 }
 
@@ -403,9 +403,50 @@ div.monster-attack-deck-instruction {
     vertical-align:             middle;
 }
 
-.aoe.h1 { height:               1.5em; }
-.aoe.h2 { height:               3em; }
-.aoe.h3 { height:               4.5em; }
+#EarthDemon .aoe.h2 {
+    position: relative;
+    right: 5px;
+}
+
+#SavvasLavaflow .aoe.h1 {
+    position: relative;
+    right: -9px;
+}
+
+#TheSightlessEye .collapse {
+    height: 85px;
+}
+
+#TheSightlessEye img.aoe.h3[src*="sightlessEye.special1Area"] {
+    position: relative;
+    top: -10px;
+    transform: rotate(-30deg);
+    height: 85px;
+}
+
+#TheSightlessEye img.aoe.h3[src*="sightlessEye.special2Area"] {
+    position: relative;
+    top: -10px;
+    right: 15px;
+}
+
+.aoe.h1 {
+    height:               1.5em;
+}
+.aoe.h2 {
+    height:               3em;
+}
+
+#ElderDrake .aoe.h3,
+#InoxBodyguard .aoe.h3 {
+    position: relative;
+    top: -10px;
+    right: 15px;
+}
+
+.aoe.h3 {
+    height:               4.5em;
+}
 .aoe.h4 { height:               6em; }
 .aoe.h6 { height:               7.5em; }
 
@@ -413,7 +454,7 @@ div.monster-attack-deck-instruction {
 {
     position:                   absolute;
     top:                        0;
-    right:                      0;
+    right:                      -33px;
     bottom:                     0;
     margin:                     auto 0;
 }
