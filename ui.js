@@ -87,6 +87,7 @@ function init_ui()
             return initiativeA - initiativeB;
         }).forEach((div) => {
             var tableau = document.getElementById("tableau");
+            div.classList.add("no-animation");
             tableau.appendChild(div);
         });
     };

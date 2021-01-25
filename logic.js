@@ -886,6 +886,7 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
 
         }
         deck_space.onclick = () => {
+            deck_space.classList.remove("no-animation");
             var initiative = draw_ability_card(deck);
             if (initiative) {
                 deck_space.setAttribute("initiative", initiative);

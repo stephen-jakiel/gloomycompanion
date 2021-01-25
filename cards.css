@@ -214,6 +214,15 @@
     100%                        { z-index: -4; }
 }
 
+/* kill the animations on any descendant elements of .noanimation */
+.no-animation * { 
+    -webkit-animation: none !important;
+    -moz-animation: none !important;
+    -o-animation: none !important; 
+    -ms-animation: none !important; 
+    animation: none !important; 
+  } 
+
 
 .card.front.pull
 {
