@@ -872,7 +872,9 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
         var deck_space = document.createElement("div");
         deck_space.id = deckid;
         deck_space.addEventListener('contextmenu', function(e) {
-            this.className = "hiddendeck";
+            if (!this.classList.contains("hiddendeck")) {
+                this.classList.add("hiddendeck");
+            }
             e.preventDefault();
         }, false);
         deck_space.className = "card-container";
@@ -928,14 +930,20 @@ function apply_deck_selection(decks, preserve_existing_deck_state) {
         currentdeckslist.appendChild(list_item);
         var label = document.createElement("a");
         label.id = "switch-" + deckid;
-        label.href = "#switch-" + deckid
+        // label.href = "#switch-" + deckid;
         label.innerText = deck.get_real_name();
         label.title = "Click to show/hide deck";
         label.style.color = "white";
         label.addEventListener("click", function(e){
             var d = document.getElementById(this.id.replace("switch-",""));
-            d.className = (d.className === "hiddendeck") ? "card-container" : "hiddendeck";
-            label.style.color = (d.className !== "hiddendeck") ? "white" : "#808594";
+            if (d.classList.contains("hiddendeck")) {
+                d.classList.remove("hiddendeck");
+                d.classList.add("card-container");
+            } else {
+                d.classList.remove("card-container");
+                d.classList.add("hiddendeck");
+            }
+            label.style.color = (!d.classList.contains("hiddendeck")) ? "white" : "#808594";
         }, false)
         list_item.appendChild(label);
     });
@@ -1362,19 +1370,22 @@ function init() {
         var tableau = document.querySelector("#tableau");
         var header = document.querySelector(".header");
         var initiativeSort = document.querySelector("#initiative-sort");
+        var flipAll = document.querySelector("#flip-all");
         if(!showmodifierdeck.checked){
             modifier_deck_section.style.display = "none";
             modifierDeckIsLocked.style.display = "none";
             header.style.height = "50px";
             tableau.style.paddingTop = "50px";
             initiativeSort.style.top = "50px";
+            flipAll.style.top = "112px";
         }
         else{
             modifier_deck_section.style.display = "block";
             modifierDeckIsLocked.style.display = "block";
-            header.style.height = "280px";
-            tableau.style.paddingTop = "300px";
-            initiativeSort.style.top = "300px";
+            header.style.height = "224px";
+            tableau.style.paddingTop = "224px";
+            initiativeSort.style.top = "224px";
+            flipAll.style.top = "286px";
 
             if (!modifierDeckIsLocked.hasAttribute("locked")) {
                 modifierDeckIsLocked.setAttribute("locked", "");

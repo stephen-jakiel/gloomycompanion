@@ -15,11 +15,9 @@ function activate_tab(tabs, pages, activetab)
     var scenariospage = document.getElementById("scenariospage");
     var isScenarioTabActive = scenariospage && scenariospage.className.indexOf("inactive") === -1;
     if (isScenarioTabActive) {
-        // document.getElementById('applyload').style.display = '';
         document.getElementById('use-forgotten-circles').style.display = 'none';
         document.getElementById('use-forgotten-circles-label').style.display = 'none';
     } else {
-        // document.getElementById('applyload').style.display = 'none';
         document.getElementById('use-forgotten-circles').style.display = '';
         document.getElementById('use-forgotten-circles-label').style.display = '';
     }
@@ -92,47 +90,46 @@ function init_ui()
         });
     };
 
+    var flipAll = document.getElementById("flip-all");
+    flipAll.onclick = () => {
+        var initiativeDivs = document.querySelectorAll("#tableau > div");
+        initiativeDivs.forEach((initiativeDiv) => {
+            if (initiativeDiv.querySelector(".card.ability.front.pull.up.discard img[src='images/shuffle.svg']")) {
+                initiativeDiv.click();
+            }
+            initiativeDiv.click();
+        });
+    };
+
     var modifierDeckIsLocked = document.getElementById("modifier-deck-is-locked");
     modifierDeckIsLocked.onclick = (e) => {
         var gameView = document.querySelector(".game-view");
         var tableau = document.querySelector("#tableau");
         var header = document.querySelector(".header");
         var initiativeSort = document.querySelector("#initiative-sort");
-        var paneContainer = document.querySelector(".panecontainer");
-        var settingsButton = document.getElementById("settingsbtn");
-        var currentDecks = document.getElementById("currentdecks");
+        var flipAll = document.querySelector("#flip-all");
         if (modifierDeckIsLocked.hasAttribute("locked")) {
             modifierDeckIsLocked.removeAttribute("locked");
             modifierDeckIsLocked.setAttribute("src", "images/lock.svg");
 
             document.body.insertBefore(gameView, tableau);
             document.body.insertBefore(modifierDeckIsLocked, gameView);
-            document.body.insertBefore(initiativeSort, modifierDeckIsLocked);
-            initiativeSort.style.top = "402px";
-            modifierDeckIsLocked.style.top = "444px";
-            gameView.style.paddingTop = "150px"; // del
+            document.body.insertBefore(flipAll, modifierDeckIsLocked);
+            document.body.insertBefore(initiativeSort, flipAll);
+            gameView.style.paddingTop = "50px"; // del
             tableau.style.paddingTop = "0px";
-            header.style.height = "150px"; // auto
-            // paneContainer.style.position = "static";
-            // settingsButton.style.position = "static";
-            // header.style.position = "static";
-            // currentDecks.style.position = "static";
+            header.style.height = "50px"; // auto
         } else {
             modifierDeckIsLocked.setAttribute("locked", "");
             modifierDeckIsLocked.setAttribute("src", "images/unlock-alt.svg");
 
             header.appendChild(gameView);
             header.appendChild(initiativeSort);
+            header.appendChild(flipAll);
             header.appendChild(modifierDeckIsLocked);
-            initiativeSort.style.top = "300px";
-            modifierDeckIsLocked.style.top = "342px";
             gameView.style.paddingTop = "0px"; // del
-            tableau.style.paddingTop = "300px";
-            header.style.height = "280px";
-            // paneContainer.style.position = "fixed";
-            // settingsButton.style.position = "fixed";
-            // header.style.position = "fixed";
-            // currentDecks.style.position = "relative";
+            tableau.style.paddingTop = "224px";
+            header.style.height = "224px";
         }
     };
 }

@@ -131,9 +131,9 @@
 .card-container.modifier
 {
     width: 70%;
-    max-width: 306px;
+    max-width: 206px;
     margin: auto;
-    max-height: 222px;
+    max-height: 144px;
 }
 
 .card-container::before
