@@ -1313,6 +1313,7 @@ function init() {
     var scenariospage = document.getElementById("scenariospage");
 
     clearElement(deckspage);
+    document.getElementById("scenario-number").innerHTML = 1;
 
     var applybtn = document.getElementById("apply");
     var showmodifierdeck = document.getElementById("showmodifierdeck");
