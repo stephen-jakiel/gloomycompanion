@@ -1325,7 +1325,13 @@ function init() {
         try { localStorage.clear(); } catch (e) { console.error('Local storage is required'); return; }
         var isScenarioTab = isScenarioTabActive();
         if (isScenarioTab) {
-            var selected_deck_names = scenariolist.get_scenario_decks();
+            var scenarioIndex = Number(document.getElementById("scenario-number").innerHTML) - 1;
+
+            var selected_deck_names = (SCENARIO_DEFINITIONS[scenarioIndex].decks || []).map((deck) => {
+                var deck = DECKS[deck.name];
+                deck.level = getScenarioLevel();
+                return deck;
+            });
             write_to_storage("selected_deck_names", JSON.stringify(selected_deck_names));
             DECKLIST.set_selection(selected_deck_names);
         } else {

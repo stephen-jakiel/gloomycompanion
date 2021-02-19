@@ -84,13 +84,13 @@ body,
 }
 
 #scenario-chooser.active {
-    width: 70%;
-    max-width: 400px;
     position: fixed;
-    top: 200px;
+    top: 10px;
     z-index: 10001;
-    margin: 0 15%;
     background-color: white;
+    width: 300px;
+    right: 50%;
+    margin-right: -150px;
 }
 
 #scenario-chooser > .scenario {
@@ -109,7 +109,7 @@ body,
 }
 
 #opaque.active {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     background-color: #444444;

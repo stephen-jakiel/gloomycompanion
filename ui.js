@@ -225,3 +225,15 @@ function scenarioChanged() {
         DECKLIST.level_selectors[key].set_value(DECKLIST.global_level_selector.get_selection());
     }
 }
+
+function getScenarioLevel() {
+    return Number(document.getElementById('scenario-level').innerHTML);
+}
+
+function getNumberOfCharacters() {
+    return Number(document.getElementById('number-of-characeters').innerHTML);
+}
+
+function getScenarioNumber() {
+    return Number(document.getElementById("scenario-number").innerHTML);
+}
