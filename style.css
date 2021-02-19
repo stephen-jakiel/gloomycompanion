@@ -256,7 +256,7 @@ ul.tabcontainer .inactive
 
 .tabbody
 {
-    padding:            1em;
+    padding:            0 1em;
 }
 
 .tabbody.inactive
