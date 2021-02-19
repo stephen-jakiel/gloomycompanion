@@ -30,15 +30,19 @@
 {
     display: inline-block;
     vertical-align: middle;
-    width: 25%;
+    width: 110px;
+}
+
+.modifier-deck-column-1 {
+    height: 144px;
 }
 
 .modifier-deck-column-2
 {
     display: inline-block;
     vertical-align: middle;
-    width: 50%;
-    max-height: 222px;
+    width: calc(100% - 220px);
+    max-height: 144px;
 }
 
 .icon-text
@@ -87,7 +91,7 @@
 
     width: 72px;
     height: 72px;
-    margin: 0;
+    margin: auto;
 }
 
 .shuffle.not-required
@@ -121,6 +125,7 @@
 {
     width: 72px;
     height: 72px;
+    margin: auto;
     background-repeat:          no-repeat;
     background-position:        center center;
     background-size:            50%;
@@ -130,10 +135,8 @@
 
 .card-container.modifier
 {
-    width: 70%;
-    max-width: 206px;
+    max-width: 225px;
     margin: auto;
-    max-height: 144px;
 }
 
 .card-container::before

@@ -159,6 +159,7 @@ body,
 
 #bless-curse-counter-table {
     margin: auto;
+    height: 100%;
 }
 
 #bless-curse-counter-table td {
