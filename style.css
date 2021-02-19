@@ -88,16 +88,16 @@ body,
     top: 10px;
     z-index: 10001;
     background-color: white;
-    width: 315px;
+    width: 350px;
     right: 50%;
-    margin-right: -157.5px;
+    margin-right: -175px;
 }
 
 #scenario-chooser > .scenario {
     display: inline-block;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
     padding: 5px;
     text-align: center;
 }
