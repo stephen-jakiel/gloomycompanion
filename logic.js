@@ -175,7 +175,7 @@ function create_ability_card_front(initiative, name, title, shuffle, lines, atta
             current_parent = list_item;
         }
 
-        var numberOfCharacters = document.getElementById("number-of-characters").value;
+        var numberOfCharacters = Number(document.getElementById("number-of-characters").innerHTML);
         var scenarioLevel = document.getElementById("scenario-level").value;
 
         if (line && typeof line === "string" && line.indexOf("${") !== -1) {
@@ -762,7 +762,7 @@ function get_boss_stats(name, level) {
     var notes = MONSTER_STATS["bosses"][name]["level"][level]["notes"];
     var health = [MONSTER_STATS["bosses"][name]["level"][level]["health"]];
     
-    var numberOfCharacters = document.getElementById("number-of-characters").value;
+    var numberOfCharacters = Number(document.getElementById("number-of-characters").innerHTML);
     var scenarioLevel = document.getElementById("scenario-level").value;
     attack = attack.map((value) => {
         if (value && typeof value === "string" && value.startsWith("${")) {
@@ -1253,11 +1253,7 @@ function ScenarioList(scenarios) {
     scenariolist.spinner = null;
     scenariolist.decks = {};
     scenariolist.special_rules = {};
-    scenariolist.level_selector = null;
-
-    scenariolist.level_selector = new LevelSelector("Select level", false);
-
-    scenariolist.ul.appendChild(scenariolist.level_selector.html);
+    // scenariolist.ul.appendChild(scenariolist.level_selector.html);
 
     for (var i = 0; i < scenarios.length; i++) {
         var scenario = scenarios[i];
@@ -1267,33 +1263,14 @@ function ScenarioList(scenarios) {
         scenariolist.special_rules[i] = scenario.special_rules ? scenario.special_rules : "";
     }
 
-    var listitem = document.createElement("li");
-    listitem.innerText = "Select scenario number";
-    scenariolist.ul.appendChild(listitem);
-
-    var scenario_spinner = create_input("number", "scenario_number", "1", "");
-    scenario_spinner.input.id = "scenario-level";
-    scenario_spinner.input.min = 1;
-    scenario_spinner.input.max = scenarios.length;
-    scenariolist.ul.appendChild(scenario_spinner.input);
-    scenariolist.spinner = scenario_spinner.input;
-
-    scenario_spinner.input.onchange = (e) => {
-        for (var key in DECKLIST.level_selectors) {
-            DECKLIST.level_selectors[key].set_value(DECKLIST.global_level_selector.get_selection());
-        }
-    };
-
     scenariolist.get_selection = function () {
         // We're using the scenario index that is zero-based, but the scenario list is 1-based
-        var current_value = scenariolist.spinner.value - 1;
+        var current_value = Number(document.getElementById("scenario-number").innerHTML) - 1;
         return Math.min(current_value, scenarios.length + 1);
     }
 
     scenariolist.get_level = function (deck_name, special_rules) {
-
-        var base_level = scenariolist.level_selector.get_selection();
-
+        var base_level = Number(document.getElementById("scenario-level").innerHTML);
         if ((special_rules.indexOf(SPECIAL_RULES.living_corpse_two_levels_extra) >= 0) && (deck_name == SPECIAL_RULES.living_corpse_two_levels_extra.affected_deck)) {
             return Math.min(7, (parseInt(base_level) + parseInt(SPECIAL_RULES.living_corpse_two_levels_extra.extra_levels)));
         } else {
@@ -1327,27 +1304,22 @@ function clearElement(element) {
 }
 
 function isScenarioTabActive() {
-    var scenariospage = document.getElementById("scenariospage");
-    return scenariospage && scenariospage.className.indexOf("inactive") === -1;
+    var scenarioTab = document.getElementById("scenariotab");
+    return scenarioTab && scenarioTab.className.indexOf("inactive") === -1;
 }
 
 function init() {
     var deckspage = document.getElementById("deckspage");
     var scenariospage = document.getElementById("scenariospage");
 
-    [deckspage, scenariospage].forEach((element) => {
-        clearElement(element);
-    });
+    clearElement(deckspage);
 
     var applybtn = document.getElementById("apply");
-    // var applyloadbtn = document.getElementById("applyload");
     var showmodifierdeck = document.getElementById("showmodifierdeck");
 
     DECKLIST = new DeckList();
-    var scenariolist = new ScenarioList(SCENARIO_DEFINITIONS);
 
     deckspage.insertAdjacentElement("afterbegin", DECKLIST.ul);
-    scenariospage.insertAdjacentElement("afterbegin", scenariolist.ul);
 
     applybtn.onclick = function () {
         try { localStorage.clear(); } catch (e) { console.error('Local storage is required'); return; }

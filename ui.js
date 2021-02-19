@@ -12,8 +12,8 @@ function activate_tab(tabs, pages, activetab)
         pages[key].className = (key == activetab) ? "tabbody" : "inactive tabbody";
     }
 
-    var scenariospage = document.getElementById("scenariospage");
-    var isScenarioTabActive = scenariospage && scenariospage.className.indexOf("inactive") === -1;
+    var scenarioTab = document.getElementById("scenariotab");
+    var isScenarioTabActive = scenarioTab && !scenarioTab.classList.contains("inactive");
     if (isScenarioTabActive) {
         document.getElementById('use-forgotten-circles').style.display = 'none';
         document.getElementById('use-forgotten-circles-label').style.display = 'none';
@@ -171,3 +171,57 @@ function changeGame() {
     init();
 }
 
+function decrementCharacterCount() {
+    document.getElementById('number-of-characters').innerHTML = Math.max(Number(document.getElementById('number-of-characters').innerHTML) - 1, 2);
+}
+
+function incrementCharacterCount() {
+    document.getElementById('number-of-characters').innerHTML = Math.min(Number(document.getElementById('number-of-characters').innerHTML) + 1, 4);
+}
+
+function decrementScenarioLevel() {
+    document.getElementById('scenario-level').innerHTML = Math.max(Number(document.getElementById('scenario-level').innerHTML) - 1, 0);
+}
+
+function incrementScenarioLevel() {
+    document.getElementById('scenario-level').innerHTML = Math.min(Number(document.getElementById('scenario-level').innerHTML) + 1, 7);
+}
+
+function openScenarioChooser() {
+    document.getElementById("opaque").classList.add("active");
+
+    var scenarioChooser = document.getElementById("scenario-chooser");
+    scenarioChooser.classList.add("active");
+    for (var i = 1; i <= SCENARIO_DEFINITIONS.length; i++) {
+        var scenarioDiv = document.createElement("div");
+        scenarioDiv.classList.add("scenario");
+        if (i === Number(document.getElementById("scenario-number").innerHTML)) {
+            scenarioDiv.classList.add("selected");
+        }
+        scenarioDiv.innerHTML = i;
+        scenarioDiv.setAttribute("number", i);
+        scenarioDiv.onclick = (e) => {
+            document.getElementById("scenario-number").innerHTML = e.target.getAttribute("number");
+            scenarioChanged();
+            closeScenarioChooser();
+        };
+        scenarioChooser.append(scenarioDiv);
+    }
+}
+
+function closeScenarioChooser() {
+    document.getElementById("opaque").classList.remove("active");
+
+    var scenarioChooser = document.getElementById("scenario-chooser");
+    scenarioChooser.classList.remove("active");
+
+    while (scenarioChooser.firstChild) {
+        scenarioChooser.removeChild(scenarioChooser.firstChild);
+    }
+}
+
+function scenarioChanged() {
+    for (var key in DECKLIST.level_selectors) {
+        DECKLIST.level_selectors[key].set_value(DECKLIST.global_level_selector.get_selection());
+    }
+}

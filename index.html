@@ -30,19 +30,40 @@
                     <li id="deckstab">Decks</li>
                 </ul>
                 <div id="game-container">
-                    <select id="game" name="Game" onchange="changeGame();">
-                        <option value="gloomhaven">Gloomhaven</option>
-                        <option value="jaws-of-the-lion">Jaws of the Lion</option>
-                    </select><br />
-                    <div id="use-forgotten-circles-container">
-                        <input id="use-forgotten-circles" type="checkbox" checkbox onclick="changeGame();"/><label id="use-forgotten-circles-label" for="use-forgotten-circles">Forgotten Circles</label><br /><br />
+                    <div id="game-chooser">
+                        <select id="game" name="Game" onchange="changeGame();">
+                            <option value="gloomhaven">Gloomhaven</option>
+                            <option value="jaws-of-the-lion">Jaws of the Lion</option>
+                        </select><br />
+                        <div id="use-forgotten-circles-container">
+                            <input id="use-forgotten-circles" type="checkbox" checkbox onclick="changeGame();"/><label id="use-forgotten-circles-label" for="use-forgotten-circles">Forgotten Circles</label><br /><br />
+                        </div>
                     </div>
                     <ul class="selectionlist">
                         <li># of Characters</li>
-                        <input id="number-of-characters" type="number" name="character_count" min="1" max="4" value="1">
+                        <li>
+                            <button id="subtract-character" onclick="decrementCharacterCount();">-</button>
+                            <div id="number-of-characters" type="number" name="character_count">2</div>
+                            <button id="add-character" onclick="incrementCharacterCount();">+</button>
+                        </li>
+                        <li class="spacer"></li>
+                        <li>Scenario Level</li>
+                        <li>
+                            <button id="subtract-scenario-level" onclick="decrementScenarioLevel();">-</button>
+                            <div id="scenario-level" type="number" name="scenario_level">1</div>
+                            <button id="add-scenario-level" onclick="incrementScenarioLevel();">+</button>
+                        </li>
+                        <li class="spacer"></li>
                     </ul>
                 </div>
                 <div id="scenariospage" class="tabbody">
+                    <ul class="selectionlist">
+                        <li>Scenario #</li>
+                        <li>
+                            <div id="scenario-number">1</div>
+                            <button id="choose-scenario-number" onclick="openScenarioChooser();"><img src="./images/grid.svg" /></button>
+                        </li>
+                    </ul>
                 </div>
                 <div id="bottom">
                     <input id="showmodifierdeck" type="checkbox" checked /><label for="showmodifierdeck">Show Monster Modifier Deck</label>
@@ -70,5 +91,7 @@
         </div>
         <div id="tableau" style="font-size: 26.6px;"> <!-- base font size for all cards. Placed here to make it adjustable from javascript -->
         </div>
+        <div id="opaque" onclick="closeScenarioChooser();"></div>
+        <div id="scenario-chooser"></div>
     </body>
 </html>
