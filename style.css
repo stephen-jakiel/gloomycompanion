@@ -7,6 +7,11 @@ body
     background: black;
 }
 
+html,
+body {
+    overscroll-behavior-y: contain;
+}
+
 .nobr
 {
     white-space:        nowrap;
